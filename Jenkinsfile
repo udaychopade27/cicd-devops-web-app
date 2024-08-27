@@ -2,6 +2,8 @@ pipeline {
     agent any
     parameters{
         choice(choices:['Build','Delete'], description: 'Build parameter choices', name: 'build')
+    }
+
     stages{
         stage('Checkout'){
             steps {
