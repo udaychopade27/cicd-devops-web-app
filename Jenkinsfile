@@ -1,5 +1,7 @@
 pipeline {
     agent any
+    parameters{
+        choice(choices:['Build','Delete'], description: 'Build parameter choices', name: 'build')
     stages{
         stage('Checkout'){
             steps {
@@ -33,9 +35,21 @@ pipeline {
             }
         }
         stage('deploy'){
+            when{
+                        expression{params.build == 'Build' }
+                    }
             steps{
-                sh 'docker run -d -p 3002:3000 uday27/cicd-devops-webapp:latest'
+                sh 'docker run -d --name=cicd-devops-app -p 3002:3000 uday27/cicd-devops-webapp:latest'
                 }
             }
+        stage('delete'){
+            when{
+                        expression{params.build == 'Delete' }
+                    }
+            steps{
+                sh 'docker stop cicd-devops-app'
+                sh 'docker rm cicd-devops-app'
+            }
+        }
     }
 }
