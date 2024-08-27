@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages{
-         stage('Checkout'){
+        stage('Checkout'){
             steps {
                 sh "git --version"
                 sh "docker -v"
@@ -14,13 +14,14 @@ pipeline {
             }
 
         }
-        stage('push image to dockerhub')
+        stage('push image to dockerhub'){
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
                 sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                 sh 'docker push uday27/cicd-devops-webapp:latest'
                 }
             }
+        }
 
         stage('pull image'){
             steps{
