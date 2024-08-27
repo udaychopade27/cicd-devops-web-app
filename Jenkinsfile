@@ -41,7 +41,7 @@ pipeline {
                         expression{params.build == 'Build' }
                     }
             steps{
-                sh 'docker run -d --name=cicd-devops-app uday27/cicd-devops-webapp:latest'
+                sh 'docker run -d --name=cicd-devops-app -p 3002:3000 uday27/cicd-devops-webapp:latest'
                 }
             }
         stage('delete'){
