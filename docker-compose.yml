@@ -1,0 +1,7 @@
+version: "3.7"
+services:
+  webapp:
+    container_name: cicd-devops-webapp
+    build: .
+    ports:
+     - 3002:3000
