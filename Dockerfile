@@ -1,6 +1,6 @@
-FROM node:alpine
+FROM node:alpine AS build
 WORKDIR /app
 COPY package.json ./
 RUN npm install
 COPY . .
-CMD ["npm", "start"]
+CMD [ "nginx","-g","daemon off;" ]
